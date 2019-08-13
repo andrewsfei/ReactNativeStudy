@@ -13,13 +13,45 @@ import {
     Text,
     Image,
     TextInput,
-    Platform
+    Platform,
+    TouchableOpacity
 } from 'react-native';
 
 var dimensions = require('Dimensions')
 var {width, height} = dimensions.get('window')
 
 class loginView extends Component {
+    //不可改变的值ES5的写法
+    /*
+        getDefaultProps() {
+            return {
+                age: 18
+            }
+        }
+    */
+
+    //Es6不可改变的写法
+    static defaultProps = {
+        age: 18,
+    }
+
+//可以改变的值ES5的写法(废弃了)
+    /*        getInitialState() {
+                return {
+                    title: '不透明触摸',
+                    person: '张三'
+                }
+            }*/
+
+//Es6的写法
+    constructor(props) {
+        super(props);
+        this.state = {
+            title: '不透明触摸',
+            person: '张三'
+        }
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -34,15 +66,22 @@ class loginView extends Component {
 
                 </TextInput>
                 {/*登录按钮*/}
-                <View style={styles.loginBtnStyle}>
-                    <Text style={{color: 'white'}}>
-                        登录
-                    </Text>
+                <View ref="topView" style={styles.loginBtnStyle}>
+                    <TouchableOpacity
+                        activeOpacity={0.5}
+                        onPress={() => this.activeEvent('点击')}>
+                        {/*onPressIn={() => this.activeEvent('按下')}>
+                        onPressOut={() => this.activeEvent('抬起')}>
+                        onLongPress={() => this.activeEvent('长按')}>*/}
+                        <Text ref="event" style={{color: 'white'}}>
+                            登录
+                        </Text>
+                    </TouchableOpacity>
                 </View>
                 {/*设置*/}
                 <View style={styles.settingStyle}>
                     {/*设置*/}
-                    <Text>无法登录</Text>
+                    <Text>{'无法登录' + this.state.person}</Text>
                     <Text>新用户</Text>
                 </View>
                 {/*其他方式登录*/}
@@ -52,10 +91,20 @@ class loginView extends Component {
                     <Image source={require('../img/icon7.png')} style={styles.outerImageStyle}/>
                     <Image source={require('../img/icon8.png')} style={styles.outerImageStyle}/>
                 </View>
-
             </View>
 
         );
+    }
+
+    activeEvent(event) {
+        //更新状态机
+        this.setState({
+            title: event,
+            person: '李四',
+        })
+        //拿到view、
+        this.refs.topView
+        this.refs.event
     }
 };
 
@@ -71,8 +120,7 @@ const styles = StyleSheet.create({
         marginBottom: 30,
         width: width / 4,
         height: width / 4,
-        borderRadius: Platform.OS == 'android' ? 80 : 40
-
+        borderRadius: Platform.OS === 'android' ? 80 : 40
     },
     textInputStyle: {
         height: 38,
