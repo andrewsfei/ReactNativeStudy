@@ -1,22 +1,26 @@
 /**
  * @format
  */
-import React,{Component} from 'react';
+import React, {Component} from 'react';
 import {AppRegistry} from 'react-native';
-import LoginView from './studyrn/loginView';
 import {name as appName} from './app.json';
+//引入外部资源
+import LoginView from './studyrn/loginView';
+import ViewPageScollView from './studyrn/viewPageScrollView';
 
 //Es5的引入外部布局
 // var LoginView = require('./studyrn/loginView');
 
-class login extends Component {
-
+class include extends Component {
     render() {
         return (
-            <LoginView/>
+            //登录页面{/* <LoginView/>*/}
+            <ViewPageScollView/>//滑动页面
         );
     }
 }
+
 // appName 为原生中的getName 中return的值
-AppRegistry.registerComponent(appName, () => LoginView);
+// AppRegistry.registerComponent(appName, () => LoginView);
+AppRegistry.registerComponent(appName, () => ViewPageScollView);
 
