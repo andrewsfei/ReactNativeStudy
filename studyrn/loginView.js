@@ -12,20 +12,14 @@ import {
     View,
     Text,
     Image,
-    TextInput
+    TextInput,
+    Platform
 } from 'react-native';
 
+var dimensions = require('Dimensions')
+var {width, height} = dimensions.get('window')
 
-/*const App = () => {
-    return (
-        <Text style={styles.sectionTitle}>
-            第一次测试
-        </Text>
-
-    );
-};*/
-
-class loginView  extends Component{
+class loginView extends Component {
     render() {
         return (
             <View style={styles.container}>
@@ -36,12 +30,12 @@ class loginView  extends Component{
 
                 </TextInput>
                 {/*密码*/}
-                <TextInput placeholder={'请输入密码：'} password={true} style={styles.textInputStyle}>
+                <TextInput placeholder={'请输入密码：'} secureTextEntry={true} style={styles.textInputStyle}>
 
                 </TextInput>
                 {/*登录按钮*/}
                 <View style={styles.loginBtnStyle}>
-                    <Text style={{color:'white'}}>
+                    <Text style={{color: 'white'}}>
                         登录
                     </Text>
                 </View>
@@ -68,14 +62,59 @@ class loginView  extends Component{
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#dddddd'
+        backgroundColor: '#dddddd',
+        //侧轴对其方式
+        alignItems: 'center'
     },
-    iconStyle: {},
-    textInputStyle: {},
-    loginBtnStyle: {},
-    settingStyle: {},
-    otherLoginStyle: {},
-    outerImageStyle: {}
+    iconStyle: {
+        marginTop: 50,
+        marginBottom: 30,
+        width: width / 4,
+        height: width / 4,
+        borderRadius: Platform.OS == 'android' ? 80 : 40
+
+    },
+    textInputStyle: {
+        height: 38,
+        width: width,
+        backgroundColor: 'white',
+        marginBottom: 1,
+        //内容居中
+        textAlign: 'center'
+    },
+    loginBtnStyle: {
+        marginTop: 30,
+        marginBottom: 20,
+        backgroundColor: 'blue',
+        width: width * 0.9,
+        height: 35,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 8
+    },
+    settingStyle: {
+        //设置主轴的方向
+        flexDirection: 'row',
+        //主轴的对其方式
+        justifyContent: 'space-between',
+        width: width * 0.9
+    },
+    otherLoginStyle: {
+        //设置主轴的方向
+        flexDirection: 'row',
+        //侧轴对其方式
+        alignItems: 'center',
+        //绝对定位
+        position: 'absolute',
+        bottom: 10,
+        left: 10
+    },
+    outerImageStyle: {
+        width: 50,
+        height: 50,
+        marginLeft: 8,
+        borderRadius: 25
+    }
 
 });
 
