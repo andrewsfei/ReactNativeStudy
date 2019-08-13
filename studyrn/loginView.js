@@ -23,15 +23,15 @@ var {width, height} = dimensions.get('window')
 
 class loginView extends Component {
     //不可改变的值ES5的写法
-    /*        getDefaultProps() {
+/*            getDefaultProps() {
                 return {
-                    age: 18
+                    name: '王麻子',
                 }
             }*/
 
     //Es6不可改变的写法
     static defaultProps = {
-        ages: '王麻子',
+        name: '王麻子',
         sex: 'man',
         tel: '13866666666'
     }
@@ -83,7 +83,7 @@ class loginView extends Component {
                 <View style={styles.settingStyle}>
                     {/*设置*/}
                     <Text>{'无法登录' + this.state.person}</Text>
-                    <Text>{'新用户' + this.props.ages}</Text>
+                    <Text>{'新用户' + this.props.name}</Text>
                 </View>
                 {/*其他方式登录*/}
                 <View style={styles.otherLoginStyle}>
