@@ -20,19 +20,20 @@ import {
 var dimensions = require('Dimensions')
 var {width, height} = dimensions.get('window')
 
+
 class loginView extends Component {
     //不可改变的值ES5的写法
-    /*
-        getDefaultProps() {
-            return {
-                age: 18
-            }
-        }
-    */
+    /*        getDefaultProps() {
+                return {
+                    age: 18
+                }
+            }*/
 
     //Es6不可改变的写法
     static defaultProps = {
-        age: 18,
+        ages: '王麻子',
+        sex: 'man',
+        tel: '13866666666'
     }
 
 //可以改变的值ES5的写法(废弃了)
@@ -43,7 +44,7 @@ class loginView extends Component {
                 }
             }*/
 
-//Es6的写法
+//以改变的值Es6的写法
     constructor(props) {
         super(props);
         this.state = {
@@ -82,7 +83,7 @@ class loginView extends Component {
                 <View style={styles.settingStyle}>
                     {/*设置*/}
                     <Text>{'无法登录' + this.state.person}</Text>
-                    <Text>新用户</Text>
+                    <Text>{'新用户' + this.props.ages}</Text>
                 </View>
                 {/*其他方式登录*/}
                 <View style={styles.otherLoginStyle}>
@@ -102,7 +103,7 @@ class loginView extends Component {
             title: event,
             person: '李四',
         })
-        //拿到view、
+        //拿到view、（个人理解相当于id 也可以理解为findbyId（R.id.topView））
         this.refs.topView
         this.refs.event
     }
