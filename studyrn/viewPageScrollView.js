@@ -21,14 +21,18 @@ import {
     ScrollView
 } from 'react-native';
 
-var dimensions = require('Dimensions')
-var { width, height } = dimensions.get('window')
+var dimensions = require('Dimensions');
+var { width, height } = dimensions.get('window');
 //引入json数据
 import ImageData from '../ImageData'
-
 // var ImageData = require('../ImageData');
+//引入计时器类库
+// var TimerMixin = require('react-timer-mixin');
+import TimerMixin from 'react-timer-mixin'
 
 class viewPageScrollView extends Component {
+    //注册定时器
+    mixins = [TimerMixin]
     //不可改变的值ES5的写法
     /*            getDefaultProps() {
                     return {
@@ -37,11 +41,12 @@ class viewPageScrollView extends Component {
                 }*/
 
     //Es6不可改变的写法
-    /*    static defaultProps = {
-            name: '王麻子',
-            sex: 'man',
-            tel: '13866666666'
-        }*/
+    static defaultProps = {
+        duration: 1000,
+        // name: '王麻子',
+        // sex: 'man',
+        // tel: '13866666666'
+    }
 
     //可以改变的值ES5的写法(废弃了)
     /*        getInitialState() {
@@ -60,18 +65,23 @@ class viewPageScrollView extends Component {
         }
     }
 
+
+
     render() {
         return (
             <View style={styles.container}>
-                <ScrollView
+                <ScrollView ref='scrollView'
+                    horizontal={true}
                     /* 隐藏水平滚动条 */
                     showsHorizontalScrollIndicator={false}
                     /* 自动分页 */
                     pagingEnabled={true}
                     //当一帧滚动结束
-                    onMomentumScrollEnd={(e)=>this.onAnimationEnd(e)}
-
-                    horizontal={true}
+                    onMomentumScrollEnd={(e) => this.onAnimationEnd(e)}
+                    //开始拖拽的时候
+                    onScrollBeginDrag={this.onScrollBeginDrag}
+                    //停止拖拽的时候
+                    onScrollEndDrag={this.onScrollEndDrag}
                 >
                     {/*第一种写法*/}
                     {/*                    {this.renderAllImage()}*/}
@@ -90,6 +100,49 @@ class viewPageScrollView extends Component {
             </View>
 
         );
+    }
+    //调用开始拖拽
+    onScrollBeginDrag() {
+        //停止定时器(this.timer 为下边隐式的全局)
+        this.clearInterval(this.timer);
+    }
+    //调用结束拖拽
+    onScrollEndDrag() {
+        this.startTimer();
+
+    }
+
+    /* 实现一些复杂的操作 */
+    componentDidMount() {
+        //开启定时器
+        // this.startTimer();
+    }
+    startTimer() {
+        //1、拿到ScrollView
+        var scrollView = this.refs.scrollView;
+        //2、增加定时器 ---this.timer---------------->可以理解为隐式的全局变量
+        this.timer = this.setInterval(() => {
+            //2.1设置圆点
+            var activePage = 0;
+            //2.2判断(有点绕)
+            if (this.state.currentPage + 1 >= ImageData.data.length + 1) {//越界（回滚到第一页的感觉）
+                activePage = 0;
+            } else {
+                activePage = this.state.currentPage + 1;
+            }
+            //2.3更新状态机
+            this.setState({
+                currentPage: activePage
+            })
+            //2.4 让scrollview滚动起来
+            var offSetX = currentPage * width;
+            scrollView.scrollResponderScrollTo({ x: offSetX, y: '0', animated: true });
+
+
+        },
+            this.props.duration);
+
+
     }
 
     //返回所有的图片
@@ -140,7 +193,6 @@ class viewPageScrollView extends Component {
         )
     }
 }
-
 
 
 const styles = StyleSheet.create({
