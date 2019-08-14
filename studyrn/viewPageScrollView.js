@@ -52,18 +52,25 @@ class viewPageScrollView extends Component {
             }*/
 
     //以改变的值Es6的写法
-    /*    constructor(props) {
-            super(props);
-            this.state = {
-                title: '不透明触摸',
-                person: '张三'
-            }
-        }*/
+    constructor(props) {
+        super(props);
+        this.state = {
+            //当前页码
+            currentPage: 0,
+        }
+    }
 
     render() {
         return (
             <View style={styles.container}>
                 <ScrollView
+                    /* 隐藏水平滚动条 */
+                    showsHorizontalScrollIndicator={false}
+                    /* 自动分页 */
+                    pagingEnabled={true}
+                    //当一帧滚动结束
+                    onMomentumScrollEnd={(e)=>this.onAnimationEnd(e)}
+
                     horizontal={true}
                 >
                     {/*第一种写法*/}
@@ -74,6 +81,12 @@ class viewPageScrollView extends Component {
                     }
                     )}
                 </ScrollView>
+                {/*返回指示器 */}
+                <View style={styles.pageViewStyle}>
+                    {/* 返回五个点 */}
+
+                    {this.rendetPoint()}
+                </View>
             </View>
 
         );
@@ -100,12 +113,52 @@ class viewPageScrollView extends Component {
 
     };
 
+    rendetPoint() {
+        var indicatorArr = [];
+        var imageArr = ImageData.data;
+        var style;
+        for (var i = 0; i < imageArr.length; i++) {
+            //判断
+            style = (i == this.state.currentPage) ? { color: 'orange' } : { color: 'red' }
+            indicatorArr.push(
+                <Text key={i} style={[{ fontSize: 28 }, style]}>&bull;</Text>
+            );
+        }
+        return indicatorArr;
+    }
+    //当一帧滚动结束的时候调用
+    onAnimationEnd(e) {
+        //1.求出水平方向的偏移量
+        var offSetX = e.nativeEvent.contentOffset.x;
+        //2.求出当前的页数(Math.floor 为取整)
+        var currentPage = Math.floor(offSetX / width);
+        console.log(currentPage);
+        this.setState(
+            {
+                currentPage: currentPage
+            }
+        )
+    }
 }
+
+
 
 const styles = StyleSheet.create({
     container: {
         marginTop: 20
     },
+    pageViewStyle: {
+        flexDirection: "row",
+        width: width,
+        height: 20,
+        backgroundColor: 'rgba(0,0,0,0.4)',
+        position: 'absolute',
+        bottom: 0,
+        alignItems: 'center',
+        justifyContent: 'center'
+
+
+    }
 });
 
 export default viewPageScrollView;

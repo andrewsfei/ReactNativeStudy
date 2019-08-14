@@ -15,14 +15,12 @@ import GirdView from './studyrn/girdview';
 class include extends Component {
     render() {
         return (
-            //登录页面{/* <LoginView/>*/}
-            //<ViewPageScollView/>//GirdView页面
-            <GirdView/>//滑动页面
+            // <LoginView/>
+            <ViewPageScollView/>//GirdView页面
+            //<GirdView/>//滑动页面
         );
     }
 }
 // appName 为原生中的getName 中return的值
-// AppRegistry.registerComponent(appName, () => LoginView);
-// AppRegistry.registerComponent(appName, () => include);
 AppRegistry.registerComponent(appName, () => include);
 
