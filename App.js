@@ -53,5 +53,6 @@ const styles = StyleSheet.create({
     }
 
 });
+//测试下
 
 export default App;
