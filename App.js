@@ -6,7 +6,7 @@
  * @flow
  */
 
-import React, {Fragment} from 'react';
+import React, { Fragment } from 'react';
 import {
     SafeAreaView,
     StyleSheet,
@@ -23,6 +23,7 @@ import {
     DebugInstructions,
     ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import { booleanLiteral } from '@babel/types';
 
 const App = () => {
     return (
@@ -44,6 +45,8 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: '400',
         color: Colors.dark,
+        marginBottom: 10
+
     },
     highlight: {
         fontWeight: '700',
