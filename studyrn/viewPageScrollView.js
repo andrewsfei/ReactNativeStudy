@@ -27,12 +27,12 @@ var { width, height } = dimensions.get('window');
 import ImageData from '../ImageData'
 // var ImageData = require('../ImageData');
 //引入计时器类库
-// var TimerMixin = require('react-timer-mixin');
+//var TimerMixin = require('react-timer-mixin');
 import TimerMixin from 'react-timer-mixin'
 
 class viewPageScrollView extends Component {
     //注册定时器
-    mixins = [TimerMixin]
+    // mixins: [TimerMixin]
     //不可改变的值ES5的写法
     /*            getDefaultProps() {
                     return {
@@ -64,7 +64,6 @@ class viewPageScrollView extends Component {
             currentPage: 0,
         }
     }
-
 
 
     render() {
@@ -104,44 +103,47 @@ class viewPageScrollView extends Component {
     //调用开始拖拽
     onScrollBeginDrag() {
         //停止定时器(this.timer 为下边隐式的全局)
-        this.clearInterval(this.timer);
+        clearInterval(this.timer);
     }
     //调用结束拖拽
     onScrollEndDrag() {
         this.startTimer();
-
     }
 
     /* 实现一些复杂的操作 */
     componentDidMount() {
         //开启定时器
-        // this.startTimer();
+        this.startTimer();
+
     }
+
+
     startTimer() {
-        //1、拿到ScrollView
+        // 1. 拿到scrollView
         var scrollView = this.refs.scrollView;
-        //2、增加定时器 ---this.timer---------------->可以理解为隐式的全局变量
-        this.timer = this.setInterval(() => {
-            //2.1设置圆点
+        var imgCount = ImageData.data.length;
+
+        // 2.添加定时器  this.timer --->可以理解成一个隐式的全局变量
+        this.timer = setInterval(function () {
+            // 2.1 设置圆点
             var activePage = 0;
-            //2.2判断(有点绕)
-            if (this.state.currentPage + 1 >= ImageData.data.length + 1) {//越界（回滚到第一页的感觉）
+            // 2.2 判断
+            if ((this.state.currentPage + 1) >= imgCount) { // 越界
                 activePage = 0;
             } else {
                 activePage = this.state.currentPage + 1;
             }
-            //2.3更新状态机
+
+            // 2.3 更新状态机
             this.setState({
                 currentPage: activePage
-            })
-            //2.4 让scrollview滚动起来
-            var offSetX = currentPage * width;
-            scrollView.scrollResponderScrollTo({ x: offSetX, y: '0', animated: true });
+            });
 
+            // 2.4 让scrollView滚动起来
+            var offsetX = activePage * width;
+            scrollView.scrollResponderScrollTo({ x: offsetX, y: 0, animated: true });
 
-        },
-            this.props.duration);
-
+        }, this.props.duration);
 
     }
 
@@ -151,7 +153,7 @@ class viewPageScrollView extends Component {
         var allImage = [];
         //拿到图片数组
         var imageArr = ImageData.data;
-        console.log("Json数据" + imageArr)
+        // console.log("Json数据" + imageArr)
         //遍历
         for (var i = 0; i < imageArr.length; i++) {
             //取出单独的每一个对象
@@ -185,7 +187,7 @@ class viewPageScrollView extends Component {
         var offSetX = e.nativeEvent.contentOffset.x;
         //2.求出当前的页数(Math.floor 为取整)
         var currentPage = Math.floor(offSetX / width);
-        console.log(currentPage);
+        console.log("当前的位第几页：" + currentPage);
         this.setState(
             {
                 currentPage: currentPage
