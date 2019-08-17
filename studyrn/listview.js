@@ -34,7 +34,7 @@ var boxW = 100;
 var vMargin = (width - clos * boxW) / (clos + 1);
 var hMargin = 15;
 
-class ListViews extends Component {
+class FlatLists extends Component {
     //设置初始化值
     static defaultProps = {
 
@@ -52,6 +52,7 @@ class ListViews extends Component {
 
     }
 
+
     render() {
         return (
             <FlatList
@@ -59,13 +60,14 @@ class ListViews extends Component {
                 // renderRow={(item) => this.renderRow(item)}//制定listView的显示效果
                 // dataSource={this.state.dataSource}  // 数据源
                 data={this.state.data}
-                renderItem={this.renderListItem}
+                renderItem={this.renderItem}
             />
         );
 
     }
+
     //item是个变量必须用{}包含不包含的话就是常
-    renderListItem = ({ item }) => {
+    renderItem = ({ item }) => {
         return (
             <TouchableOpacity activeOpacity={0.5} >
                 <View style={styles.container}>
@@ -85,9 +87,7 @@ class ListViews extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        padding:10,
-        backgroundColor:'white',
-        //下划线
+        padding: 10,
         flexDirection: 'row',
         borderBottomWidth: 0.5,
         borderBottomColor: '#e8e8e8',
@@ -95,7 +95,6 @@ const styles = StyleSheet.create({
     },
 
     rightViewStyle: {
-        // 主轴的对齐方式
         justifyContent: 'center'
     },
     leftImageStyle: {
@@ -104,15 +103,14 @@ const styles = StyleSheet.create({
         marginRight: 15
     },
     topTitleStyle: {
-        color:'red',
-        fontSize:15,
-        width:width * 0.7,
-        marginBottom:8,
+        color: 'red',
+        fontSize: 15,
+        width: width * 0.7,
+        marginBottom: 8,
     },
     bottomTitleStyle: {
-        color:'blue',
     }
 });
 
-export default ListViews;
+export default FlatLists;
 

@@ -8,7 +8,7 @@ import { name as appName } from './app.json';
 import LoginView from './studyrn/loginView';
 import ViewPageScollView from './studyrn/viewPageScrollView';
 import GirdView from './studyrn/girdview';
-import ListView from './studyrn/listview';
+import FlatLists from './studyrn/listview';
 
 //Es5的引入外部布局
 // var LoginView = require('./studyrn/loginView');
@@ -19,7 +19,7 @@ class include extends Component {
             // <LoginView/>
             //<ViewPageScollView/>//GirdView页面
             //<GirdView/>//滑动页面
-            <ListView />//ListView页面
+            <FlatLists />//ListView页面
         );
     }
 }
