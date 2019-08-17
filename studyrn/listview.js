@@ -23,7 +23,6 @@ import {
 //导入json数据
 // import WineData from '../Wine.json'
 import WineData from './../studyrn/Wine.json'
-import { wrap } from 'module';
 
 var Dimensions = require('Dimensions');
 var { width, height } = Dimensions.get('window');
@@ -72,7 +71,7 @@ class FlatLists extends Component {
             <TouchableOpacity activeOpacity={0.5} >
                 <View style={styles.container}>
                     {<Image source={{ uri: 'http://b-ssl.duitang.com/uploads/item/201410/21/20141021130124_FuaME.jpeg' }} style={styles.leftImageStyle} />}
-                    {/*                     <Image source={{uri:item.image}}style={styles.leftImageStyle}/> */}
+                    {/* {<Image source={{ uri: item.image }} style={styles.leftImageStyle} />} */}
                     <View style={styles.rightViewStyle}>
                         <Text style={styles.topTitleStyle}>{item.name}</Text>
                         <Text style={styles.bottomTitleStyle}>¥{item.money}</Text>
@@ -109,6 +108,7 @@ const styles = StyleSheet.create({
         marginBottom: 8,
     },
     bottomTitleStyle: {
+        color: 'blue'
     }
 });
 
