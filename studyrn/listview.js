@@ -20,9 +20,16 @@ import {
     TouchableOpacity
 } from 'react-native'
 
+
+
 //导入json数据
 // import WineData from '../Wine.json'
 import WineData from './../studyrn/Wine.json'
+//跳转路由
+import { createAppContainer, createStackNavigator, StackActions, NavigationActions } from 'react-navigation';
+//引入外部资源
+import GirdView from './girdview';
+// import GirdView from '../studyrn/girdview'
 
 var Dimensions = require('Dimensions');
 var { width, height } = Dimensions.get('window');
@@ -34,6 +41,12 @@ var vMargin = (width - clos * boxW) / (clos + 1);
 var hMargin = 15;
 
 class FlatLists extends Component {
+
+    static navigationOptions = {
+        tabBarVisible: false, // 隐藏底部导航栏
+        header: null,  //隐藏顶部导航栏
+    };
+
     //设置初始化值
     static defaultProps = {
 
@@ -46,13 +59,16 @@ class FlatLists extends Component {
         this.state = {
             // 用相应的clone方法设置datasource的初始值
             // dataSource: ds.cloneWithRows(WineData) //放置数组
-            data: WineData
+            data: WineData,
+            name: ''
         }
 
     }
 
 
     render() {
+
+
         return (
             <FlatList
                 // dataSource={this.state.dataSource}//关联state中的datasource
@@ -67,8 +83,9 @@ class FlatLists extends Component {
 
     //item是个变量必须用{}包含不包含的话就是常
     renderItem = ({ item }) => {
+
         return (
-            <TouchableOpacity activeOpacity={0.5} >
+            <TouchableOpacity activeOpacity={0.5} onPress={() => this.onPressNavigator(item)} >
                 <View style={styles.container}>
                     {<Image source={{ uri: 'http://b-ssl.duitang.com/uploads/item/201410/21/20141021130124_FuaME.jpeg' }} style={styles.leftImageStyle} />}
                     {/* {<Image source={{ uri: item.image }} style={styles.leftImageStyle} />} */}
@@ -80,6 +97,20 @@ class FlatLists extends Component {
             </TouchableOpacity>
 
         );
+    }
+    onPressNavigator(data) {
+        console.log('打印数据值' + data)
+        alert(data.name)
+
+        this.props.navigation.dispatch(StackActions.reset({
+            index: 0,
+            actions: [
+                NavigationActions.navigate({ routeName: 'Gird' })
+            ],
+        }))
+
+        // //往下个页面跳转传值
+        // this.props.navigation.navigate("GirdView")
     }
 
 }
@@ -111,6 +142,7 @@ const styles = StyleSheet.create({
         color: 'blue'
     }
 });
+
 
 export default FlatLists;
 

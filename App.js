@@ -6,51 +6,26 @@
  * @flow
  */
 
-import React, { Fragment } from 'react';
-import {
-    SafeAreaView,
-    StyleSheet,
-    ScrollView,
-    View,
-    Text,
-    StatusBar,
-} from 'react-native';
+import React from 'react';
+import { View, Text, Button } from 'react-native';
+import { createAppContainer, createStackNavigator, StackActions, NavigationActions } from 'react-navigation';
+import HomeScreen from "./index";
 
-import {
-    Header,
-    LearnMoreLinks,
-    Colors,
-    DebugInstructions,
-    ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-import { booleanLiteral } from '@babel/types';
+import LISTScreen from "./studyrn/listview";
+import GIRDScreen from "./studyrn/girdview";
 
-const App = () => {
-    return (
-        <Text style={styles.sectionTitle}>
-            第一次测试
-        </Text>
 
-    );
-};
-const styles = StyleSheet.create({
 
-    sectionTitle: {
-        fontSize: 24,
-        fontWeight: '600',
-        color: Colors.black,
+const AppNavigator = createStackNavigator({
+    Home: {
+        screen: LISTScreen,
     },
-    sectionDescription: {
-        marginTop: 8,
-        fontSize: 18,
-        fontWeight: '400',
-        color: Colors.dark,
-        marginBottom: 10
-
+    Gird: {
+        screen: GIRDScreen,
     },
-    highlight: {
-        fontWeight: '700',
-    }
 
-});
-export default App;
+}, {
+        initialRouteName: 'Home',
+    });
+    
+export default createAppContainer(AppNavigator);

@@ -18,6 +18,8 @@ import {
     Image
 } from 'react-native'
 
+import { createAppContainer, createStackNavigator, StackActions, NavigationActions } from 'react-navigation';
+
 var bageData = require('../BadgeData');
 
 var Dimensions = require('Dimensions');
@@ -30,7 +32,11 @@ var vMargin = (width - clos * boxW) / (clos + 1);
 var hMargin = 15;
 
 class GirdView extends Component {
+    
     render() {
+/*         alert(this.props.data.name)
+        console.log("获取listview传过来的值"+this.props.data.money) */
+        // console.log("获取listview传过来的值"+this.props.navigation.getParam('name'))//接收参
         return (
             <View style={styles.container}>
                 {this.renderAllBage()}
