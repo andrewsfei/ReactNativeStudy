@@ -36,7 +36,8 @@ class GirdView extends Component {
     render() {
 /*         alert(this.props.data.name)
         console.log("获取listview传过来的值"+this.props.data.money) */
-        // console.log("获取listview传过来的值"+this.props.navigation.getParam('name'))//接收参
+        // alert(this.props.navigation.getParam('name'))
+        console.log("获取listview传过来的值"+this.props.navigation.getParam('name'))//接收参
         return (
             <View style={styles.container}>
                 {this.renderAllBage()}

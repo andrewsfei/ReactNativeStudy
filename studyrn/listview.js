@@ -67,8 +67,6 @@ class FlatLists extends Component {
 
 
     render() {
-
-
         return (
             <FlatList
                 // dataSource={this.state.dataSource}//关联state中的datasource
@@ -101,16 +99,15 @@ class FlatLists extends Component {
     onPressNavigator(data) {
         console.log('打印数据值' + data)
         alert(data.name)
-
-        this.props.navigation.dispatch(StackActions.reset({
+/*         this.props.navigation.dispatch(StackActions.reset({
             index: 0,
             actions: [
                 NavigationActions.navigate({ routeName: 'Gird' })
             ],
-        }))
+        })) */
 
         // //往下个页面跳转传值
-        // this.props.navigation.navigate("GirdView")
+        this.props.navigation.navigate('Gird',{name:data.name})
     }
 
 }
