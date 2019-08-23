@@ -6,11 +6,16 @@ import Child from './Child';
 
 //定义属性
 class VM {
-    @observable  firstName = '';
-    @observable lastName = '';
+    @observable
+    firstName = "";
+    @observable
+    lastName = "";
 
     @computed
     get fullName() {
+
+        console.log(JSON.stringify(this))
+        // alert(JSON.stringify(this))
         const {fristName, lastName} = this;
         if (!fristName && !lastName) {
             return 'please input your name!'
@@ -19,7 +24,6 @@ class VM {
         }
     }
 
-
     @action.bound
     setValue(key, event) {
         this[key] = event.target.value;
@@ -27,19 +31,20 @@ class VM {
 
     @action.bound
     doReset() {
-        this.firstName = '';
-        this.lastName = '';
+        this.firstName = "";
+        this.lastName = "";
     }
 }
 
 const vm = new VM();
 
-export default class Father extends Component {
+class Father extends Component {
     render() {
         return (
-            <Child/>
+            <Child vm={vm}/>
         )
     }
-
 }
+
+export default Father;
 

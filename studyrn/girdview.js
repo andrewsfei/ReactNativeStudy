@@ -15,7 +15,7 @@ import {
     StyleSheet,
     Text,
     View,
-    Image
+    Image, TouchableOpacity
 } from 'react-native'
 
 import { createAppContainer, createStackNavigator, StackActions, NavigationActions } from 'react-navigation';
@@ -24,7 +24,6 @@ var bageData = require('../BadgeData');
 
 var Dimensions = require('Dimensions');
 var {width, height} = Dimensions.get('window');
-
 //定义一些全局的变量
 var clos = 3;
 var boxW = 100;
@@ -53,15 +52,21 @@ class GirdView extends Component {
             var bage = bageData.data[i]
             //直接装入数组
             allBage.push(
+                <TouchableOpacity activeOpacity={0.5} onPress={()=>this.startFather()}>
                 <View key={i} style={styles.outViewStyle}>
                     <Image source={{uri: bage.icon}} style={styles.imageStyle}/>
                     <Text style={styles.mainTitleStyle}>
                         {bage.title}
                     </Text>
                 </View>
+                </TouchableOpacity>
             );
         }
         return allBage;
+    }
+
+    startFather(e){
+        this.props.navigation.navigate('Father')
     }
 }
 
