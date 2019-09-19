@@ -2,6 +2,7 @@ package com.studyreactdemo;
 
 import android.app.Application;
 
+import com.facebook.react.BuildConfig;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
 
@@ -13,6 +14,8 @@ import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 
@@ -21,7 +24,25 @@ public class MainApplication extends Application implements ReactApplication {
     private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
         @Override
         public boolean getUseDeveloperSupport() {
+            //修改之前
             return BuildConfig.DEBUG;
+            //源码修改之后
+/*            ReactNativeHost rnh=((ReactApplication) getApplication()).getReactNativeHost();
+            Class<?>cls=rnh.getClass();
+            Object support= null;
+            try {
+                Method method = cls.getDeclaredMethod("getUseDeveloperSupport", new Class[]{});
+                method.setAccessible(true);
+                support=method.invoke(rnh);
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+            return (boolean) support;*/
+
         }
 
 /*    @Override
