@@ -6,51 +6,34 @@
  * @flow
  */
 
-import React, { Fragment } from 'react';
-import {
-    SafeAreaView,
-    StyleSheet,
-    ScrollView,
-    View,
-    Text,
-    StatusBar,
-} from 'react-native';
+import React from 'react';
+import {View, Text, Button} from 'react-native';
+import {createAppContainer, createStackNavigator, StackActions, NavigationActions} from 'react-navigation';
+import HomeScreen from "./index";
+import LISTScreen from "./studyrn/listview";
+import GIRDScreen from "./studyrn/girdview";
+import FATHER from './studyrn/Father'
+// export default NativeModules.SplashScreen;
+const RootStack = createStackNavigator({
 
-import {
-    Header,
-    LearnMoreLinks,
-    Colors,
-    DebugInstructions,
-    ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-import { booleanLiteral } from '@babel/types';
 
-const App = () => {
-    return (
-        <Text style={styles.sectionTitle}>
-            第一次测试
-        </Text>
-
-    );
-};
-const styles = StyleSheet.create({
-
-    sectionTitle: {
-        fontSize: 24,
-        fontWeight: '600',
-        color: Colors.black,
+    Home: {
+        screen: LISTScreen,
     },
-    sectionDescription: {
-        marginTop: 8,
-        fontSize: 18,
-        fontWeight: '400',
-        color: Colors.dark,
-        marginBottom: 10
-
+    Gird: {
+        screen: GIRDScreen,
     },
-    highlight: {
-        fontWeight: '700',
+    Father: {
+        screen: FATHER
     }
-
+}, {
+    initialRouteName: 'Home',
+    headerMode: 'none'
 });
-export default App;
+//修改前
+// export default createAppContainer(RootStack );
+//修改后
+const App = createAppContainer(RootStack);
+export default App
+
+

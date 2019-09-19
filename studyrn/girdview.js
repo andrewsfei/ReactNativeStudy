@@ -15,14 +15,15 @@ import {
     StyleSheet,
     Text,
     View,
-    Image
+    Image, TouchableOpacity
 } from 'react-native'
+
+import { createAppContainer, createStackNavigator, StackActions, NavigationActions } from 'react-navigation';
 
 var bageData = require('../BadgeData');
 
 var Dimensions = require('Dimensions');
 var {width, height} = Dimensions.get('window');
-
 //定义一些全局的变量
 var clos = 3;
 var boxW = 100;
@@ -30,7 +31,12 @@ var vMargin = (width - clos * boxW) / (clos + 1);
 var hMargin = 15;
 
 class GirdView extends Component {
+    
     render() {
+/*         alert(this.props.data.name)
+        console.log("获取listview传过来的值"+this.props.data.money) */
+        // alert(this.props.navigation.getParam('name'))
+        console.log("获取listview传过来的值"+this.props.navigation.getParam('name'))//接收参
         return (
             <View style={styles.container}>
                 {this.renderAllBage()}
@@ -46,15 +52,21 @@ class GirdView extends Component {
             var bage = bageData.data[i]
             //直接装入数组
             allBage.push(
+                <TouchableOpacity activeOpacity={0.5} onPress={()=>this.startFather()}>
                 <View key={i} style={styles.outViewStyle}>
                     <Image source={{uri: bage.icon}} style={styles.imageStyle}/>
                     <Text style={styles.mainTitleStyle}>
                         {bage.title}
                     </Text>
                 </View>
+                </TouchableOpacity>
             );
         }
         return allBage;
+    }
+
+    startFather(e){
+        this.props.navigation.navigate('Father')
     }
 }
 
