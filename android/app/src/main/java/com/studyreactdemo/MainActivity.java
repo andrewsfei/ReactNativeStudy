@@ -1,9 +1,13 @@
 package com.studyreactdemo;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 
 import com.studyreactdemo.base.BaseActivity;
@@ -45,7 +49,6 @@ public class MainActivity extends ReactActivity {
  * 第三种方式
  */
         //获取rnrootview
-/*
         mRootView = getRootView();
         //模拟loadding图片
         new Handler().postDelayed(new Runnable() {
@@ -53,10 +56,15 @@ public class MainActivity extends ReactActivity {
             public void run() {
                 setContentView(mRootView.getRootView());
             }
-        }, 3000);
-*/
+        }, 2000);
 
-
+        registerReceiver(new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                mRootView.setVisibility(View.VISIBLE);
+                Log.d("页面---","页面显示了。。。");
+            }
+        },new IntentFilter("com.studyreactdemo.show"));
     }
 
     @Override

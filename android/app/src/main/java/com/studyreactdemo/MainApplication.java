@@ -12,6 +12,7 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
+import com.studyreactdemo.rnpackage.NotificationPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 
 import java.lang.reflect.InvocationTargetException;
@@ -64,7 +65,8 @@ public class MainApplication extends Application implements ReactApplication {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
                     new RNGestureHandlerPackage(),
-                    new SplashScreenReactPackage()
+                    new SplashScreenReactPackage(),
+                    new NotificationPackage()
             );
         }
 

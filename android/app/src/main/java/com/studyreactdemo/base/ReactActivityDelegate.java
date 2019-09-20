@@ -93,7 +93,7 @@ public class ReactActivityDelegate {
                 getReactNativeHost().getReactInstanceManager(),
                 appKey,
                 getLaunchOptions());
-        getPlainActivity().setContentView(mReactRootView);
+//        getPlainActivity().setContentView(mReactRootView);
     }
     //修改部分
 
