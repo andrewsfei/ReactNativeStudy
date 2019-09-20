@@ -6,7 +6,8 @@ import {createAppContainer, createStackNavigator, StackActions, NavigationAction
 import React, {Component} from 'react';
 import {
     AppRegistry,
-    NativeModules
+    NativeModules,
+    Platform
 } from 'react-native';
 import {name as appName} from './app.json';
 import App from './App.js'
@@ -26,7 +27,12 @@ class include extends Component {
         // do stuff while splash screen is shown
         // After having done stuff (such as async tasks) hide the splash screen
         // SplashScreen.hide();
-        NativeModules.Notification.showContentView();
+        if (Platform.OS==='android'){
+            NativeModules.Notification.showContentView();
+        }else {
+
+        }
+
     }
 
     render() {
